@@ -1,4 +1,7 @@
-import { create } from "zustand"
+"use client";
+
+import { create } from "zustand";
+
 
 export interface User {
   id: string
@@ -56,3 +59,35 @@ export const useAuthStore = create<AuthStore>((set) => ({
       user: state.user ? { ...state.user, ...updates } : null,
     })),
 }))
+
+const ADMIN_EMAIL = "admin@eacloth.com";   // 🔹 CHANGE THIS
+const ADMIN_PASSWORD = "admineacloth";             // 🔹 CHANGE THIS
+
+type AdminAuthState = {
+  isAdmin: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+};
+
+export const useAdminAuthStore = create<AdminAuthState>((set) => ({
+  // ✅ same for server + client on first render
+  isAdmin: false,
+
+  login: async (email, password) => {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("isAdmin", "true");
+      }
+      set({ isAdmin: true });
+    } else {
+      throw new Error("Invalid email or password");
+    }
+  },
+
+  logout: () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("isAdmin");
+    }
+    set({ isAdmin: false });
+  },
+}));

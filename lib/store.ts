@@ -3,6 +3,7 @@ import { create } from "zustand"
 export interface Product {
   id: string
   name: string
+  original_price: number
   price: number
   image: string
   category: string

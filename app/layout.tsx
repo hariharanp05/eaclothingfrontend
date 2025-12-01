@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { Toaster } from "sonner";
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -42,6 +43,8 @@ export default function RootLayout({
       <body className={`font-sans antialiased flex flex-col min-h-screen`}>
         <Navbar />
         <main className="flex-1">{children}</main>
+        {/* Add the Toaster here */}
+        <Toaster position="top-right" richColors closeButton />
         <Footer />
         <Analytics />
       </body>

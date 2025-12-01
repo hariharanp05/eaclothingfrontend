@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import ProductCard from "@/components/product-card"
-import { products } from "@/lib/products"
 import { ChevronDown } from "lucide-react"
+import { fetchProducts } from "@/lib/api"
+import type { Product } from "@/lib/store"
 
 const collections = [
   {
@@ -32,21 +33,49 @@ export default function CollectionsPage() {
   const [selectedCollection, setSelectedCollection] = useState("all")
   const [sortBy, setSortBy] = useState("newest")
 
-  const filteredProducts =
-    selectedCollection === "all" ? products : products.filter((p) => p.category.toLowerCase() === selectedCollection)
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+  // 🔹 Fetch products whenever selectedCollection changes
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true)
+      setError(null)
+
+      try {
+        const data = await fetchProducts(selectedCollection)
+        setProducts(data)
+      } catch (err) {
+        console.error(err)
+        setError("Failed to load products")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadProducts()
+  }, [selectedCollection])
+
+  const activeCollection =
+    collections.find((c) => c.id === selectedCollection) ?? collections[0]
+
+  // 🔹 Only sort here (filtering is handled by backend)
+  const sortedProducts = useMemo(() => {
+    const arr = [...products]
     switch (sortBy) {
       case "price-low":
-        return a.price - b.price
+        return arr.sort((a, b) => a.price - b.price)
       case "price-high":
-        return b.price - a.price
+        return arr.sort((a, b) => b.price - a.price)
       case "name":
-        return a.name.localeCompare(b.name)
+        return arr.sort((a, b) => a.name.localeCompare(b.name))
+      case "newest":
       default:
-        return 0
+        // if you add created_at: sort by that here
+        return arr
     }
-  })
+  }, [products, sortBy])
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,28 +99,53 @@ export default function CollectionsPage() {
             {collections.map((collection) => (
               <button
                 key={collection.id}
+                type="button"
                 onClick={() => {
                   setSelectedCollection(collection.id)
                   setSortBy("newest")
                 }}
-                className={`p-6 rounded-lg border-2 transition-all text-left ${
+                className={`p-6 rounded-lg border-2 transition-all text-left transform ${
                   selectedCollection === collection.id
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-primary/50"
+                    ? "border-primary bg-primary/5 shadow-md scale-[1.02]"
+                    : "border-border hover:border-primary/50 hover:shadow-sm hover:scale-[1.01]"
                 }`}
               >
                 <h3 className="font-semibold text-lg mb-2">{collection.name}</h3>
-                <p className="text-sm text-muted-foreground">{collection.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {collection.description}
+                </p>
               </button>
             ))}
           </div>
         </div>
 
         {/* Filters and Sorting */}
-        <div className="container mx-auto px-4 mb-8">
+        <div className="container mx-auto px-4 mb-4">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">{activeCollection.name}</h2>
+            <p className="text-sm text-muted-foreground">
+              {activeCollection.description}
+            </p>
+          </div>
+
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <p className="text-muted-foreground">Showing {sortedProducts.length} products</p>
+              {loading ? (
+                <p className="text-muted-foreground">Loading products...</p>
+              ) : error ? (
+                <p className="text-red-500 text-sm">{error}</p>
+              ) : (
+                <p className="text-muted-foreground text-sm">
+                  Showing{" "}
+                  <span className="font-semibold">
+                    {sortedProducts.length}
+                  </span>{" "}
+                  products in{" "}
+                  <span className="font-semibold">
+                    {activeCollection.name}
+                  </span>
+                </p>
+              )}
             </div>
             <div className="flex gap-3">
               <div className="relative">
@@ -113,7 +167,15 @@ export default function CollectionsPage() {
 
         {/* Products Grid */}
         <div className="container mx-auto px-4">
-          {sortedProducts.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">Loading products...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-red-500 text-lg">{error}</p>
+            </div>
+          ) : sortedProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {sortedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
@@ -121,7 +183,19 @@ export default function CollectionsPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">No products found in this collection.</p>
+              <p className="text-muted-foreground text-lg mb-3">
+                No products found in this collection.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Try{" "}
+                <button
+                  onClick={() => setSelectedCollection("all")}
+                  className="underline underline-offset-4"
+                >
+                  viewing all products
+                </button>{" "}
+                or check back soon for new arrivals.
+              </p>
             </div>
           )}
         </div>

@@ -1,21 +1,74 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { products } from "@/lib/products"
-import { useCartStore, type CartItem } from "@/lib/store"
-import { Heart, Share2, ChevronLeft, ChevronRight } from "lucide-react"
+import { use, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { fetchProduct } from "@/lib/api";
+import { useCartStore, type CartItem } from "@/lib/store";
+import { Heart, Share2, ChevronLeft, ChevronRight } from "lucide-react";
+import { toast } from "sonner";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const router = useRouter()
-  const product = products.find((p) => p.id === params.id)
-  const [quantity, setQuantity] = useState(1)
-  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "")
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "")
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const addItem = useCartStore((state) => state.addItem)
+export default function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const router = useRouter();
+
+  // unwrap params (Next.js 16 requirement)
+  const { id } = use(params);
+
+  // state for product data from backend
+  const [product, setProduct] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // UI states
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const addItem = useCartStore((state) => state.addItem);
+
+  // Fetch product from backend
+  useEffect(() => {
+    fetchProduct(id)
+      .then((data) => {
+        setProduct(data);
+
+        // Normalize sizes/colors for initial selection
+        const sizesArray = Array.isArray(data?.sizes)
+          ? data.sizes
+          : typeof data?.sizes === "string"
+          ? data.sizes
+              .split(",")
+              .map((s: string) => s.trim())
+              .filter(Boolean)
+          : [];
+
+        const colorsArray = Array.isArray(data?.colors)
+          ? data.colors
+          : typeof data?.colors === "string"
+          ? data.colors
+              .split(",")
+              .map((c: string) => c.trim())
+              .filter(Boolean)
+          : [];
+
+        setSelectedSize(sizesArray[0] || "");
+        setSelectedColor(colorsArray[0] || "");
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="p-8 text-center text-lg font-semibold">
+        Loading product details...
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -25,7 +78,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           Back to Shop
         </Button>
       </div>
-    )
+    );
   }
 
   const handleAddToCart = () => {
@@ -34,16 +87,59 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       quantity,
       size: selectedSize,
       color: selectedColor,
-    }
-    addItem(cartItem)
-    router.push("/cart")
+    };
+    addItem(cartItem);
+    toast.success("🛒 Added to cart!");
+    // router.push("/cart");
+  };
+
+  // 🔥 Normalize backend images (main + gallery)
+  let galleryFromApi: string[] = [];
+
+  if (Array.isArray(product.images)) {
+    galleryFromApi = product.images;
+  } else if (typeof product.images === "string") {
+    // in case backend sends "img1.jpg,img2.jpg"
+    galleryFromApi = product.images
+      .split(",")
+      .map((s: string) => s.trim())
+      .filter(Boolean);
   }
 
-  const images = [product.image, "/product-display-sleek.png", "/product-image-3.png"]
+  // main image first, then gallery (no duplicates), all truthy
+  const images: string[] = [
+    product.image,
+    ...galleryFromApi.filter(
+      (img) => img && img !== product.image
+    ),
+  ].filter(Boolean);
+
+  // Normalize sizes/colors for rendering (in case API sends string)
+  const sizesArray: string[] = Array.isArray(product.sizes)
+    ? product.sizes
+    : typeof product.sizes === "string"
+    ? product.sizes
+        .split(",")
+        .map((s: string) => s.trim())
+        .filter(Boolean)
+    : [];
+
+  const colorsArray: string[] = Array.isArray(product.colors)
+    ? product.colors
+    : typeof product.colors === "string"
+    ? product.colors
+        .split(",")
+        .map((c: string) => c.trim())
+        .filter(Boolean)
+    : [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Button variant="ghost" onClick={() => router.back()} className="mb-6 gap-2">
+      <Button
+        variant="ghost"
+        onClick={() => router.back()}
+        className="mb-6 gap-2"
+      >
         <ChevronLeft className="h-4 w-4" />
         Back
       </Button>
@@ -60,13 +156,21 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             {images.length > 1 && (
               <>
                 <button
-                  onClick={() => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)}
+                  onClick={() =>
+                    setCurrentImageIndex(
+                      (prev) => (prev - 1 + images.length) % images.length
+                    )
+                  }
                   className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => setCurrentImageIndex((prev) => (prev + 1) % images.length)}
+                  onClick={() =>
+                    setCurrentImageIndex(
+                      (prev) => (prev + 1) % images.length
+                    )
+                  }
                   className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -80,7 +184,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 key={idx}
                 onClick={() => setCurrentImageIndex(idx)}
                 className={`aspect-square rounded-md overflow-hidden border-2 transition-colors ${
-                  idx === currentImageIndex ? "border-accent" : "border-border hover:border-accent"
+                  idx === currentImageIndex
+                    ? "border-accent"
+                    : "border-border hover:border-accent"
                 }`}
               >
                 <img
@@ -96,29 +202,39 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         {/* Product Info */}
         <div className="space-y-6">
           <div>
-            <p className="text-sm font-medium text-accent mb-2">{product.category}</p>
+            <p className="text-sm font-medium text-accent mb-2">
+              {product.category}
+            </p>
             <h1 className="text-4xl font-bold mb-3">{product.name}</h1>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-yellow-400">★</span>
-              <span className="font-semibold">{product.rating}</span>
-              <span className="text-muted-foreground">({product.reviews} reviews)</span>
-            </div>
           </div>
 
-          <div className="text-3xl font-bold text-accent">${product.price}</div>
+          <div className="text-3xl font-bold text-accent">
+            <span className="line-through text-muted-foreground mr-3">
+              {product.original_price
+                ? `₹${product.original_price.toLocaleString("en-IN")}`
+                : null}
+            </span>
+            <span>₹{product.price.toLocaleString("en-IN")}</span>
+          </div>
 
-          <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+          <p className="text-muted-foreground leading-relaxed">
+            {product.description}
+          </p>
 
           {/* Color Selection */}
           <div>
-            <label className="block text-sm font-semibold mb-3">Color: {selectedColor}</label>
+            <label className="block text-sm font-semibold mb-3">
+              Color: {selectedColor}
+            </label>
             <div className="flex gap-3">
-              {product.colors.map((color) => (
+              {colorsArray.map((color) => (
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   className={`px-4 py-2 rounded-md border-2 transition-colors ${
-                    selectedColor === color ? "border-accent bg-accent/10" : "border-border hover:border-accent"
+                    selectedColor === color
+                      ? "border-accent bg-accent/10"
+                      : "border-border hover:border-accent"
                   }`}
                 >
                   {color}
@@ -129,9 +245,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
           {/* Size Selection */}
           <div>
-            <label className="block text-sm font-semibold mb-3">Size: {selectedSize}</label>
+            <label className="block text-sm font-semibold mb-3">
+              Size: {selectedSize}
+            </label>
             <div className="grid grid-cols-3 gap-2">
-              {product.sizes.map((size) => (
+              {sizesArray.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
@@ -149,7 +267,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
           {/* Quantity */}
           <div>
-            <label className="block text-sm font-semibold mb-3">Quantity</label>
+            <label className="block text-sm font-semibold mb-3">
+              Quantity
+            </label>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -157,7 +277,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               >
                 −
               </button>
-              <span className="text-lg font-semibold w-8 text-center">{quantity}</span>
+              <span className="text-lg font-semibold w-8 text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="p-2 border border-border rounded-md hover:bg-secondary transition-colors"
@@ -167,7 +289,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {/* Actions */}
+          {/* Buttons */}
           <div className="flex gap-4 pt-4">
             <Button
               onClick={handleAddToCart}
@@ -175,31 +297,28 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             >
               Add to Cart
             </Button>
-            <Button variant="outline" size="icon" onClick={() => setIsWishlisted(!isWishlisted)} className="py-6">
-              <Heart className={`h-5 w-5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setIsWishlisted(!isWishlisted)}
+              className="py-6"
+            >
+              <Heart
+                className={`h-5 w-5 ${
+                  isWishlisted ? "fill-red-500 text-red-500" : ""
+                }`}
+              />
             </Button>
-            <Button variant="outline" size="icon" className="py-6 bg-transparent">
+            <Button
+              variant="outline"
+              size="icon"
+              className="py-6 bg-transparent"
+            >
               <Share2 className="h-5 w-5" />
             </Button>
-          </div>
-
-          {/* Additional Info */}
-          <div className="border-t border-border pt-6 space-y-3">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Availability</span>
-              <span className="font-semibold text-green-600">In Stock</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Shipping</span>
-              <span className="font-semibold">Free on orders over $100</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Returns</span>
-              <span className="font-semibold">30-day return policy</span>
-            </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

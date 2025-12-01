@@ -1,13 +1,29 @@
 "use client"
 
+import { use, useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { CheckCircle, Package, Truck, Mail } from "lucide-react"
 
-export default function OrderConfirmationPage() {
-  const orderNumber = `ORD-${String(Math.random()).slice(2, 10).toUpperCase()}`
-  const estimatedDelivery = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString()
+export default function OrderConfirmationPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ order?: string }>
+}) {
+  // 🔹 Unwrap searchParams (Next.js 16 passes it as a Promise)
+  const { order } = use(searchParams)
+
+  // 🔹 Show real order id if present, else fallback text
+  const orderNumber = order ? `ORD-${order}` : "ORDER-PROCESSING"
+
+  // 🔹 Handle date on client only to avoid hydration mismatch
+  const [estimatedDelivery, setEstimatedDelivery] = useState<string | null>(null)
+
+  useEffect(() => {
+    const date = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+    setEstimatedDelivery(date.toLocaleDateString())
+  }, [])
 
   return (
     <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-8">
@@ -30,7 +46,9 @@ export default function OrderConfirmationPage() {
         <div className="bg-background rounded-lg p-6 mb-8 space-y-4 text-left">
           <div className="flex items-center justify-between pb-4 border-b border-border">
             <span className="font-semibold">Order Number</span>
-            <span className="text-lg font-mono font-bold text-accent">{orderNumber}</span>
+            <span className="text-lg font-mono font-bold text-accent">
+              {orderNumber}
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -53,7 +71,9 @@ export default function OrderConfirmationPage() {
             <Truck className="h-5 w-5 text-accent" />
             <div>
               <p className="text-sm text-muted-foreground">Estimated Delivery</p>
-              <p className="font-semibold">{estimatedDelivery}</p>
+              <p className="font-semibold">
+                {estimatedDelivery ?? "Calculating..."}
+              </p>
             </div>
           </div>
         </div>
@@ -79,9 +99,9 @@ export default function OrderConfirmationPage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button variant="outline" asChild className="flex-1 bg-transparent">
+          {/* <Button variant="outline" asChild className="flex-1 bg-transparent">
             <Link href="/orders">View Order Details</Link>
-          </Button>
+          </Button> */}
           <Button asChild className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
             <Link href="/shop">Continue Shopping</Link>
           </Button>

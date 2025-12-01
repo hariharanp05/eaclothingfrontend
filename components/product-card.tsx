@@ -23,7 +23,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           alt={product.name}
           className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <button
+        {/* <button
           onClick={(e) => {
             e.preventDefault()
             setIsWishlisted(!isWishlisted)
@@ -33,7 +33,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           <Heart
             className={`h-5 w-5 transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : "text-gray-400"}`}
           />
-        </button>
+        </button> */}
       </Link>
 
       <div className="p-4">
@@ -41,25 +41,32 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           <h3 className="font-semibold text-sm truncate">{product.name}</h3>
         </Link>
 
-        <div className="flex items-center gap-2 mt-2">
+        {/* <div className="flex items-center gap-2 mt-2">
           <div className="flex items-center gap-1">
             <span className="text-yellow-400">★</span>
             <span className="text-xs text-muted-foreground">
               {product.rating} ({product.reviews})
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-lg font-bold">${product.price}</span>
-          <Button
+          <div className="flex flex-col">
+    <span className="text-sm text-muted-foreground line-through">
+      ₹{product.original_price}
+    </span>
+    <span className="text-lg font-bold text-l">
+      ₹{product.price}
+    </span>
+  </div>
+          {/* <Button
             size="sm"
             variant="ghost"
             onClick={() => onAddToCart?.(product)}
             className="hover:bg-accent hover:text-accent-foreground"
           >
             <ShoppingCart className="h-4 w-4" />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </Card>

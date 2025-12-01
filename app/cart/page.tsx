@@ -64,7 +64,7 @@ export default function CartPage() {
                     <p className="text-sm text-muted-foreground">
                       {item.color} - Size {item.size}
                     </p>
-                    <p className="font-semibold mt-2">${item.product.price}</p>
+                    <p className="font-semibold mt-2">₹{item.product.price}</p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
                     <div className="flex items-center gap-2 border border-border rounded-md">
@@ -84,7 +84,7 @@ export default function CartPage() {
                         +
                       </button>
                     </div>
-                    <p className="font-semibold">${(item.product.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-semibold">₹{(item.product.price * item.quantity).toFixed(2)}</p>
                     <button
                       onClick={() => removeItem(item.product.id, item.size, item.color)}
                       className="text-destructive hover:bg-destructive/10 p-1 rounded-md transition-colors"
@@ -105,23 +105,23 @@ export default function CartPage() {
               <div className="space-y-3 border-b border-border pb-4">
                 <div className="flex justify-between text-sm">
                   <span>Subtotal</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>₹{totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Shipping</span>
                   <span className={shippingCost === 0 ? "text-green-600 font-semibold" : ""}>
-                    {shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`}
+                    {shippingCost === 0 ? "Free" : `₹${shippingCost.toFixed(2)}`}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Tax (8%)</span>
-                  <span>${tax.toFixed(2)}</span>
+                  <span>₹{tax.toFixed(2)}</span>
                 </div>
               </div>
 
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span>${finalTotal.toFixed(2)}</span>
+                <span>₹{finalTotal.toFixed(2)}</span>
               </div>
 
               <Button
@@ -138,7 +138,7 @@ export default function CartPage() {
               {totalPrice <= 100 && (
                 <div className="bg-accent/10 border border-accent/20 rounded-md p-3 text-sm">
                   <p className="text-accent font-semibold">
-                    Add ${(100 - totalPrice).toFixed(2)} more for free shipping!
+                    Add ₹{(100 - totalPrice).toFixed(2)} more for free shipping!
                   </p>
                 </div>
               )}

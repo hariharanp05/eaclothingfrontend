@@ -8,13 +8,13 @@ import { useCartStore } from "@/lib/store"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  const getTotalItems = useCartStore((state) => state.getTotalItems)
-  const cartCount = getTotalItems()
+  const cartCount = useCartStore((state) => state.getTotalItems())
+
 
   const menuItems = [
     { label: "Products", href: "/shop" },
     { label: "Collections", href: "/collections" },
-    { label: "Purchase History", href: "/orders" },
+    // { label: "Purchase History", href: "/orders" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ]
