@@ -124,11 +124,53 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 __turbopack_context__.s([
     "useAdminAuthStore",
-    ()=>useAdminAuthStore
+    ()=>useAdminAuthStore,
+    "useAuthStore",
+    ()=>useAuthStore
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$zustand$40$5$2e$0$2e$8_$40$types$2b$react$40$_9e6abf5a11cef0cb24e08a19fc431ebd$2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/.pnpm/zustand@5.0.8_@types+react@_9e6abf5a11cef0cb24e08a19fc431ebd/node_modules/zustand/esm/react.mjs [app-client] (ecmascript)");
 "use client";
 ;
+const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$zustand$40$5$2e$0$2e$8_$40$types$2b$react$40$_9e6abf5a11cef0cb24e08a19fc431ebd$2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])((set)=>({
+        user: null,
+        isLoggedIn: false,
+        login: async (email, password)=>{
+            // Simulate API call
+            await new Promise((resolve)=>setTimeout(resolve, 500));
+            set({
+                user: {
+                    id: "1",
+                    email,
+                    name: email.split("@")[0],
+                    createdAt: new Date()
+                },
+                isLoggedIn: true
+            });
+        },
+        signup: async (email, password, name)=>{
+            // Simulate API call
+            await new Promise((resolve)=>setTimeout(resolve, 500));
+            set({
+                user: {
+                    id: String(Date.now()),
+                    email,
+                    name,
+                    createdAt: new Date()
+                },
+                isLoggedIn: true
+            });
+        },
+        logout: ()=>set({
+                user: null,
+                isLoggedIn: false
+            }),
+        updateProfile: (updates)=>set((state)=>({
+                    user: state.user ? {
+                        ...state.user,
+                        ...updates
+                    } : null
+                }))
+    }));
 const ADMIN_EMAIL = "admin@eacloth.com"; // 🔹 CHANGE THIS
 const ADMIN_PASSWORD = "admineacloth"; // 🔹 CHANGE THIS
 const useAdminAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$zustand$40$5$2e$0$2e$8_$40$types$2b$react$40$_9e6abf5a11cef0cb24e08a19fc431ebd$2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])((set)=>({

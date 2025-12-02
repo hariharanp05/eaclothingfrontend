@@ -93,6 +93,41 @@ export default function ProductPage({
     // router.push("/cart");
   };
 
+  // 🧷 SHARE HANDLER
+  const handleShare = async () => {
+    try {
+      const url =
+        typeof window !== "undefined"
+          ? window.location.href
+          : `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/product/${id}`;
+
+      const title = product?.name || "EA Clothing";
+      const text = "Check out this product from EA Clothing";
+
+      // If browser supports Web Share API (mobile, some desktops)
+      if (typeof navigator !== "undefined" && (navigator as any).share) {
+        await (navigator as any).share({
+          title,
+          text,
+          url,
+        });
+      } else if (
+        typeof navigator !== "undefined" &&
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ) {
+        // Fallback: copy link to clipboard
+        await navigator.clipboard.writeText(url);
+        toast.success("🔗 Product link copied to clipboard!");
+      } else {
+        toast.error("Sharing is not supported in this browser.");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+      toast.error("Could not share this product.");
+    }
+  };
+
   // 🔥 Normalize backend images (main + gallery)
   let galleryFromApi: string[] = [];
 
@@ -109,9 +144,7 @@ export default function ProductPage({
   // main image first, then gallery (no duplicates), all truthy
   const images: string[] = [
     product.image,
-    ...galleryFromApi.filter(
-      (img) => img && img !== product.image
-    ),
+    ...galleryFromApi.filter((img) => img && img !== product.image),
   ].filter(Boolean);
 
   // Normalize sizes/colors for rendering (in case API sends string)
@@ -297,7 +330,7 @@ export default function ProductPage({
             >
               Add to Cart
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               size="icon"
               onClick={() => setIsWishlisted(!isWishlisted)}
@@ -308,11 +341,12 @@ export default function ProductPage({
                   isWishlisted ? "fill-red-500 text-red-500" : ""
                 }`}
               />
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               size="icon"
               className="py-6 bg-transparent"
+              onClick={handleShare}
             >
               <Share2 className="h-5 w-5" />
             </Button>

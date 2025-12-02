@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { persist, createJSONStorage } from "zustand/middleware"
 
 export interface Product {
   id: string
@@ -32,41 +33,54 @@ interface CartStore {
   getTotalItems: () => number
 }
 
-export const useCartStore = create<CartStore>((set, get) => ({
-  items: [],
-  addItem: (newItem) =>
-    set((state) => {
-      const existingItem = state.items.find(
-        (item) => item.product.id === newItem.product.id && item.size === newItem.size && item.color === newItem.color,
-      )
-      if (existingItem) {
-        return {
-          items: state.items.map((item) =>
-            item === existingItem ? { ...item, quantity: item.quantity + newItem.quantity } : item,
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+      addItem: (newItem) =>
+        set((state) => {
+          const existingItem = state.items.find(
+            (item) =>
+              item.product.id === newItem.product.id &&
+              item.size === newItem.size &&
+              item.color === newItem.color,
+          )
+          if (existingItem) {
+            return {
+              items: state.items.map((item) =>
+                item === existingItem ? { ...item, quantity: item.quantity + newItem.quantity } : item,
+              ),
+            }
+          }
+          return { items: [...state.items, newItem] }
+        }),
+      removeItem: (productId, size, color) =>
+        set((state) => ({
+          items: state.items.filter(
+            (item) => !(item.product.id === productId && item.size === size && item.color === color),
           ),
-        }
-      }
-      return { items: [...state.items, newItem] }
+        })),
+      updateQuantity: (productId, size, color, quantity) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.product.id === productId && item.size === size && item.color === color
+              ? { ...item, quantity }
+              : item,
+          ),
+        })),
+      clearCart: () => set({ items: [] }),
+      getTotalPrice: () => {
+        const { items } = get()
+        return items.reduce((total, item) => total + item.product.price * item.quantity, 0)
+      },
+      getTotalItems: () => {
+        const { items } = get()
+        return items.reduce((total, item) => total + item.quantity, 0)
+      },
     }),
-  removeItem: (productId, size, color) =>
-    set((state) => ({
-      items: state.items.filter(
-        (item) => !(item.product.id === productId && item.size === size && item.color === color),
-      ),
-    })),
-  updateQuantity: (productId, size, color, quantity) =>
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.product.id === productId && item.size === size && item.color === color ? { ...item, quantity } : item,
-      ),
-    })),
-  clearCart: () => set({ items: [] }),
-  getTotalPrice: () => {
-    const { items } = get()
-    return items.reduce((total, item) => total + item.product.price * item.quantity, 0)
-  },
-  getTotalItems: () => {
-    const { items } = get()
-    return items.reduce((total, item) => total + item.quantity, 0)
-  },
-}))
+    {
+      name: "ea-cart", // key in localStorage
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+)

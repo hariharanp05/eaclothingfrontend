@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Menu, X } from 'lucide-react'
@@ -8,8 +8,17 @@ import { useCartStore } from "@/lib/store"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  const cartCount = useCartStore((state) => state.getTotalItems())
 
+  // ✅ getTotalItems from store
+  const getTotalItems = useCartStore((state) => state.getTotalItems)
+
+  // ✅ only show real count on client to avoid hydration mismatch
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const cartCount = isClient ? getTotalItems() : 0
 
   const menuItems = [
     { label: "Products", href: "/shop" },
@@ -49,7 +58,8 @@ export function Navbar() {
             <Button variant="ghost" size="icon" className="relative" asChild>
               <Link href="/cart">
                 <ShoppingCart className="h-5 w-5" />
-                {cartCount > 0 && (
+                {/* ✅ Only render badge on client */}
+                {isClient && cartCount > 0 && (
                   <span className="absolute top-1 right-1 w-4 h-4 bg-accent text-accent-foreground text-xs flex items-center justify-center rounded-full font-semibold">
                     {cartCount}
                   </span>
@@ -58,7 +68,10 @@ export function Navbar() {
             </Button>
 
             {/* Mobile Menu Toggle */}
-            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 rounded-md hover:bg-secondary">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-md hover:bg-secondary"
+            >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>

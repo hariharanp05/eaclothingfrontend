@@ -1,405 +1,128 @@
-[00:00:03.603] Server  LOG      ✓ Ready in 2.6s
-[00:00:32.902] Server  LOG      ○ Compiling / ...
-[00:00:38.007] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:38.395] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:38.395] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:38.396] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601014442}
-[00:00:41.273] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/shop color: rgb(120, 120, 120) color: inherit {"dp":"/shop","o":"http://localhost:3000/shop","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601017296}
-[00:00:45.007] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/products/1 color: rgb(120, 120, 120) color: inherit {"dp":"/products/[id]","o":"http://localhost:3000/products/1","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601021031}
-[00:01:48.052] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601084066}
-[00:01:51.792] Server  ERROR    ⨯ ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
+[00:00:08.572] Server  LOG      ✓ Ready in 5.6s
+[00:00:20.936] Server  LOG      ○ Compiling /checkout ...
+[00:00:28.998] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:30.225] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:31.042] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:31.042] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminea","route":"/adminea"}
+[00:00:31.042] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/login","route":"/login"}
+[00:00:31.042] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/adminea color: rgb(120, 120, 120) color: inherit {"dp":"/adminea","o":"http://localhost:3000/adminea","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663780381}
+[00:00:31.042] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663780381}
+[00:00:33.105] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:33.105] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/checkout","route":"/checkout"}
+[00:00:33.105] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/checkout color: rgb(120, 120, 120) color: inherit {"dp":"/checkout","o":"http://localhost:3000/checkout","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663781525}
+[00:00:33.105] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663781656}
+[00:00:46.082] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/shop color: rgb(120, 120, 120) color: inherit {"dp":"/shop","o":"http://localhost:3000/shop","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663795493}
+[00:00:50.569] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/products/1 color: rgb(120, 120, 120) color: inherit {"dp":"/products/[id]","o":"http://localhost:3000/products/1","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764663800102}
+[00:03:43.695] Server  LOG      ✓ Compiled in 427ms
+[00:11:22.979] Server  LOG      ✓ Compiled in 249ms
+[00:26:52.084] Server  LOG      ✓ Compiled in 556ms
+[00:26:56.568] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:57.147] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:26:57.147] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/products/1","route":"/products/[id]"}
+[00:26:57.147] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/products/1 color: rgb(120, 120, 120) color: inherit {"dp":"/products/[id]","o":"http://localhost:3000/products/1","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665366717}
+[00:26:57.867] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:59.029] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:26:59.029] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:26:59.029] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665367832}
+[00:27:06.953] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:07.201] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
+https://react.dev/link/hydration-mismatch
 
+  ...
+    <SegmentViewNode type="layout" pagePath="layout.tsx">
+      <SegmentTrieNode>
+      <link>
+      <script>
+      <script>
+      <script>
+      <RootLayout>
+        <html lang="en" suppressHydrationWarning={true}>
+          <body className="font-sans ...">
+            <Navbar>
+              <nav className="sticky top...">
+                <div className="max-w-7xl ...">
+                  <div className="flex items...">
+                    <LinkComponent>
+                    <div>
+                    <div className="flex items...">
+                      <Button variant="ghost" size="icon" className="relative" asChild={true}>
+                        <Slot data-slot="button" className={"inline-f..."}>
+                          <SlotClone data-slot="button" className={"inline-f..."} ref={null}>
+                            <LinkComponent href="/cart" data-slot="button" className={"inline-f..."} ref={null}>
+                              <a data-slot="button" className={"inline-f..."} ref={function} onClick={function onClick} ...>
+                                <ShoppingCart>
++                               <span
++                                 className="absolute top-1 right-1 w-4 h-4 bg-accent text-accent-foreground text-xs f..."
++                               >
+                      ...
+            ...
 
+[00:27:07.201] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:27:07.201] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:27:07.201] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:27:07.201] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665376766}
+[00:27:07.201] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665376767}
+[00:27:11.319] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:11.572] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
-./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
 
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
 
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
+https://react.dev/link/hydration-mismatch
 
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
+  ...
+    <SegmentViewNode type="layout" pagePath="layout.tsx">
+      <SegmentTrieNode>
+      <link>
+      <script>
+      <script>
+      <script>
+      <RootLayout>
+        <html lang="en" suppressHydrationWarning={true}>
+          <body className="font-sans ...">
+            <Navbar>
+              <nav className="sticky top...">
+                <div className="max-w-7xl ...">
+                  <div className="flex items...">
+                    <LinkComponent>
+                    <div>
+                    <div className="flex items...">
+                      <Button variant="ghost" size="icon" className="relative" asChild={true}>
+                        <Slot data-slot="button" className={"inline-f..."}>
+                          <SlotClone data-slot="button" className={"inline-f..."} ref={null}>
+                            <LinkComponent href="/cart" data-slot="button" className={"inline-f..."} ref={null}>
+                              <a data-slot="button" className={"inline-f..."} ref={function} onClick={function onClick} ...>
+                                <ShoppingCart>
++                               <span
++                                 className="absolute top-1 right-1 w-4 h-4 bg-accent text-accent-foreground text-xs f..."
++                               >
+                      ...
+            ...
 
-
-[00:01:52.060] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:52.060] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:53.517] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:53.517] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:53.689] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:53.689] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:54.861] Server  ERROR    ⨯ ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-
-
-
-./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-
-
-[00:01:54.910] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:54.910] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:55.346] Browser ERROR   uncaughtError: Error: ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-
-
-[00:01:55.541] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:55.541] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:55.648] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-client] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:01:55.648] Browser ERROR   ./app/checkout/page.tsx:10:1
-Export useAuthStore doesn't exist in target module
-   8 | import { Card } from "@/components/ui/card";
-   9 | import { useCartStore } from "@/lib/store";
-> 10 | import { useAuthStore } from "@/lib/auth-store";
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  11 | import { ChevronLeft, Lock } from "lucide-react";
-  12 | import { placeOrder } from "@/lib/api";
-  13 | import { toast } from "sonner";
-
-The export useAuthStore was not found in module [project]/lib/auth-store.ts [app-ssr] (ecmascript).
-Did you mean to import useAdminAuthStore?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import traces:
-  Client Component Browser:
-    ./app/checkout/page.tsx [Client Component Browser]
-    ./app/checkout/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/checkout/page.tsx [Client Component SSR]
-    ./app/checkout/page.tsx [Server Component]
-[00:05:07.988] Server  LOG      ✓ Compiled in 216ms
-[00:05:09.603] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:10.661] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:05:10.661] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/checkout","route":"/checkout"}
-[00:05:10.661] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/checkout color: rgb(120, 120, 120) color: inherit {"dp":"/checkout","o":"http://localhost:3000/checkout","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601286489}
-[00:05:10.661] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601286539}
-[00:05:16.092] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/shop color: rgb(120, 120, 120) color: inherit {"dp":"/shop","o":"http://localhost:3000/shop","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601292101}
-[00:05:18.575] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/products/1 color: rgb(120, 120, 120) color: inherit {"dp":"/products/[id]","o":"http://localhost:3000/products/1","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601294617}
-[00:05:28.731] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601304751}
-[00:05:30.703] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/checkout color: rgb(120, 120, 120) color: inherit {"dp":"/checkout","o":"http://localhost:3000/checkout","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764601306730}
+[00:27:11.572] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:27:11.572] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:27:11.572] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:27:11.572] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665381147}
+[00:27:11.572] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665381147}
+[00:36:35.006] Server  LOG      ✓ Compiled in 542ms
+[00:36:43.934] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665953496}
+[00:36:46.168] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/shop color: rgb(120, 120, 120) color: inherit {"dp":"/shop","o":"http://localhost:3000/shop","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665955692}
+[00:36:48.304] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/products/2 color: rgb(120, 120, 120) color: inherit {"dp":"/products/[id]","o":"http://localhost:3000/products/2","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665957879}
+[00:36:56.779] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:57.218] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:36:57.218] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/cart","route":"/cart"}
+[00:36:57.218] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/cart color: rgb(120, 120, 120) color: inherit {"dp":"/cart","o":"http://localhost:3000/cart","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764665966793}
